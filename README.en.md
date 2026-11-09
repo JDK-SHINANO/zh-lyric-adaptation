@@ -2,9 +2,9 @@
 
 [简体中文](README.md)
 
-Write Chinese lyrics that fit a Japanese song. Character count comes from the mora count, phrase breaks come from the ear, register comes from the original.
+Write Chinese lyrics that fit a Japanese song. Character count comes from the mora count, phrase breaks come from listening, register comes from the original.
 
-A straight translation of a Japanese lyric crowds the line. Adaptation is rewriting: seven morae in the original means seven characters in Chinese. One extra character and the line will not sit on the melody; one missing and it goes slack. These two scripts handle the mechanical half — split the morae, align the characters, check the result.
+A straight translation of a Japanese lyric crowds the line. Adaptation is rewriting: seven morae in the original means seven characters in Chinese. One extra character and the line will not sit on the melody; one missing leaves a gap. These two scripts handle the mechanical half — split the morae, align the characters, check the result.
 
 ## What it is
 
@@ -43,6 +43,8 @@ As a Hermes skill:
 rsync -a --exclude .git ./ ~/.hermes/skills/creative/zh-lyric-adaptation/
 ```
 
+The skill name is `zh-song-lyric-adaptation` (the `name` field in SKILL.md frontmatter); the directory is `zh-lyric-adaptation`. The two differ: invoke the skill by its name.
+
 ## Layout
 
 ```
@@ -73,8 +75,8 @@ If the dependency is missing, `check_lyric.py` says so and exits with code 2. It
 - An LRC line boundary is not a musical phrase boundary. On one 33-line song, two lines were shifted by a whole phrase — the tail of one line belonged to the head of the next. Adapt against LRC timing and one line will always land early and the next late.
 - Do not look for beats with a script. Spectral-flux onset detection returned 843 onsets against 381 morae in the song, 2.2× over; autocorrelation gave a 2:1 double peak and no usable beat. The scripts check character count, breaks, rhyme and tone. They do not analyse rhythm.
 - Phrase breaks land on word boundaries. A two-character word must not be split by `|`, or the breath cuts the word in half. The singer places the breaks; the machine does not guess them.
-- Do not break the one-character-per-mora rule casually. Any algorithm that drops a character by letting the final mora absorb it will be overruled by the ear: the dropped mora does not disappear, it leaves a hole in the middle of the line. If a cut is needed, ask first, and cut only at the end of a line.
-- A line that feels wrong usually has the wrong words, not the wrong rhythm. In a lyric written throughout in classical diction, one 「好好地」 or 「指尖」 or 「谎话」 and the voice stops belonging to the character. Keep the mora count and change the register instead.
+- Do not break the one-character-per-mora rule casually. Any algorithm that drops a character by letting the final mora absorb it will be overruled by listening: the dropped mora does not disappear, it leaves an empty beat in the middle of the line. If a cut is needed, ask first, and cut only at the end of a line.
+- A line that feels wrong usually has the wrong words, not the wrong rhythm. In a lyric written throughout in classical diction, one 「好好地」 or 「指尖」 or 「谎话」 and the register slips. Keep the mora count and change the register instead.
 
 Further details live in SKILL.md: contracted sounds count as one mora, ー/ん/っ each take one, hand-typed romanisation tends to lose hyphens, the last character before a cut has to be singable on a long note, and the tone at the end of a line follows the melody.
 
