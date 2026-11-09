@@ -6,19 +6,19 @@
 
 ## 两件工具
 
-`scripts/pair_table.py` 把罗马音和中文并排成一张对照表，一拍一字，上下一一对应：
+`src/pair_table.py` 把罗马音和中文并排成一张对照表，一拍一字，上下一一对应：
 
 ```
-$ python3 scripts/pair_table.py 词.tsv
+$ python3 src/pair_table.py 词.tsv
 第1句（6+4）
   no-bo-ru-tsu-ki-wo｜se-o-i-te
   身-负-初-升-之-月｜霜-落-双-肩
 ```
 
-`scripts/check_lyric.py` 逐句核字数、断点、韵脚。字数对不上拍数、断点落在词中间、韵脚重字，都会报出来，退出码非零：
+`src/check_lyric.py` 逐句核字数、断点、韵脚。字数对不上拍数、断点落在词中间、韵脚重字，都会报出来，退出码非零：
 
 ```
-$ python3 scripts/check_lyric.py 词.tsv
+$ python3 src/check_lyric.py 词.tsv
 ```
 
 输入是同一个 TSV，每行一句，两列，TAB 分隔：罗马音在前，中文在后，拍用 `-` 分，断点用 `|`。
